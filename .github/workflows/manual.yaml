@@ -1,4 +1,6 @@
 name: How to manually trigger a workflow
+
+# This describes the event that will trigger the workflow
 on: 
     workflow_dispatch:
       inputs:
@@ -9,6 +11,8 @@ on:
           description: 'Why are you running this workflow manually?'
           required: true
           default: 'I am running tests before implementing an automated workflow'
+
+# This is the workflow/jobs that will be triggered by the events above
 jobs:
   tests_manual_workflow:
     runs-on: ubuntu-latest
