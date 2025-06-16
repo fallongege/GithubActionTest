@@ -31,6 +31,12 @@ jobs:
         echo "User ${{ github.event.inputs.username }} ran a workflow manually."
         echo "Because ${{ github.event.inputs.reason }}."
         echo "The workflow was triggered by ${{ github.event.inputs.username}}"
+
+    - name: 'Check OS'
+      run: |
+          echo "Running on ${{ matrix.os }}"
+          echo "The current runner is ${{ runner.os }}"
+          
     - run: |
         env
         echo ${token}
