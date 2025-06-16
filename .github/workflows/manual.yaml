@@ -9,8 +9,8 @@ on:
           required: true
         reason:
           description: 'Why are you running this workflow manually?'
-          required: true
-          default: 'I am running tests before implementing an automated workflow'
+          required: false
+          default: ""
 
 # This is the workflow/jobs that will be triggered by the events above
 jobs:
@@ -46,4 +46,8 @@ jobs:
       run: |
           echo "The event payload is:"
           echo "${{ toJson(github.event) }}"
-          
+    - name: 'Print-All-Github-Contexts'
+      run: |
+          echo "The github context is:"
+          echo "${{ toJson(github) }}"
+
