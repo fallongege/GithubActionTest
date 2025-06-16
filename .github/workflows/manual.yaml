@@ -16,7 +16,12 @@ on:
 jobs:
   tests_manual_workflow:
     runs-on: ubuntu-latest
+    env:
+      token: ${{ GITHUB_TOKEN }}
     steps:
     - run: >
         echo "User ${{ github.event.inputs.username }} ran a workflow manually."
         echo "Because ${{ github.event.inputs.reason }}."
+    - run: |
+        env
+        echo ${token}
