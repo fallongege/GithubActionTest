@@ -75,12 +75,14 @@ jobs:
         path: ${{ github.workspace }}/build_logs
     
     - name: 'Upload-Artifact'
-      if: steps.upload_logs.outcome == 'success'
+      #if: steps.upload_logs.outcome == 'success'
+      if: ${{ always() }}
       run: |
         echo "The upload_logs step was successful, proceeding to upload the artifact."
     - name: Download build logs
       id: download_logs
-      if: steps.upload_logs.outcome == 'success'
+      #if: steps.upload_logs.outcome == 'success'
+      if: ${{ always() }}
       uses: actions/download-artifact@v4
       with:
         name: 'build_logs'
