@@ -109,3 +109,15 @@ jobs:
         draft: false
         prerelease: false
         files: ${{ github.workspace }}/build_logs/build.logs
+  
+    - name: 'Push to github packages'
+      if: ${{ always() }}
+      uses: docker/build-push-action@v4
+      with:
+        context: ${{ github.workspace }}
+        push: true
+        tags: ghcr.io/${{ github.repository_owner }}/${{ github.event.inputs.username }}:${{ env.tag }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
