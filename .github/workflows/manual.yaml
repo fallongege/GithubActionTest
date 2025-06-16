@@ -42,3 +42,8 @@ jobs:
       run: |
           pwd
           ls
+    - name: Get-Event-Payload
+      run: |
+          echo "The event payload is:"
+          echo "${{ toJson(github.event) }}"
+          
