@@ -25,3 +25,15 @@ jobs:
     - run: |
         env
         echo ${token}
+    - name: run-ls
+      run: |
+          pwd
+          ls
+    - name: checkout
+      uses: actions/checkout@v4
+      with: 
+          token: ${{ env.token }}
+    - name: 'check-directory'
+      run: |
+          pwd
+          ls
