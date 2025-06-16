@@ -17,7 +17,7 @@ jobs:
   tests_manual_workflow:
     runs-on: ubuntu-latest
     env:
-      token: ${{ sercets.GITHUB_TOKEN }}
+      token: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - run: >
         echo "User ${{ github.event.inputs.username }} ran a workflow manually."
