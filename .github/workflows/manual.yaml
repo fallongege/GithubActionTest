@@ -87,9 +87,16 @@ jobs:
       with:
         name: 'build_logs'
         path: ${{ github.workspace }}/build_logs
+     
+    - name: 'Print-Downloaded-Logs'
+      run: |
+        echo "The downloaded logs are:"
+        cat ${{ github.workspace }}/build_logs/build.logs
+        ls -l ${{ github.workspace }}/build_logs
 
     - name: 'Release-Artifact'
-      if: steps.download_logs.outcome == 'success'
+      #if: steps.download_logs.outcome == 'success'
+      if: ${{ always() }}
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ github.event.release.upload_url }}
