@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest,  macos-latest]
+        os: [ubuntu-latest]
     runs-on: ${{ matrix.os}}
     env:
       token: ${{ secrets.GITHUB_TOKEN }}
@@ -60,4 +60,16 @@ jobs:
       run: |
           echo "The github context is:"
           echo "${{ toJson(github) }}"
+    
+    - name: Build with logs
+      run: |
+          mkdir ${{ github.workspace }}/build_logs
+          echo "Logs from building" > ${{ github.workspace }}/build_logs/build.logs
+          exit 1
+    - name: Upload logs on fail
+      if: ${{ failure() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: build_logs
+        path: ${{ github.workspace }}/build_logs
 
