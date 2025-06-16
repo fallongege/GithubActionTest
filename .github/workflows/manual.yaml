@@ -89,17 +89,8 @@ jobs:
         path: ${{ github.workspace }}/build_logs
      
     - name: 'Print-Downloaded-Logs'
+      if: ${{ always() }}
       run: |
         echo "The downloaded logs are:"
         cat ${{ github.workspace }}/build_logs/build.logs
         ls -l ${{ github.workspace }}/build_logs
-
-    - name: 'Release-Artifact'
-      #if: steps.download_logs.outcome == 'success'
-      if: ${{ always() }}
-      uses: actions/upload-release-asset@v1
-      with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ${{ github.workspace }}/build_logs/build.logs
-        asset_name: build.logs
-        asset_content_type: text/plain
