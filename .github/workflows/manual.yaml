@@ -18,6 +18,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       token: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: write
+      issues: write
+      actions: write
     steps:
     - run: >
         echo "User ${{ github.event.inputs.username }} ran a workflow manually."
