@@ -23,7 +23,7 @@ jobs:
       issues: write
       actions: write
     steps:
-    - run: >
+    - run: |
         echo "User ${{ github.event.inputs.username }} ran a workflow manually."
         echo "Because ${{ github.event.inputs.reason }}."
         echo "The workflow was triggered by ${{ github.event.inputs.username}}"
