@@ -15,7 +15,11 @@ on:
 # This is the workflow/jobs that will be triggered by the events above
 jobs:
   tests_manual_workflow:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest,  macos-latest]
+    runs-on: ${{ matrix.os}}
     env:
       token: ${{ secrets.GITHUB_TOKEN }}
     permissions:
