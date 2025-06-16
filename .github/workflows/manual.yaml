@@ -26,6 +26,7 @@ jobs:
     - run: >
         echo "User ${{ github.event.inputs.username }} ran a workflow manually."
         echo "Because ${{ github.event.inputs.reason }}."
+        echo "The workflow was triggered by ${{ github.event.inputs.username}}"
     - run: |
         env
         echo ${token}
