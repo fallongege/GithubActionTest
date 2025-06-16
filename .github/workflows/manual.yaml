@@ -67,9 +67,30 @@ jobs:
           echo "Logs from building" > ${{ github.workspace }}/build_logs/build.logs
           exit 1
     - name: Upload logs on fail
+      id: upload_logs
       if: ${{ failure() }}
       uses: actions/upload-artifact@v4
       with:
         name: build_logs
         path: ${{ github.workspace }}/build_logs
+    
+    - name: 'Upload-Artifact'
+      if: steps.upload_logs.outcome == 'success'
+      run: |
+        echo "The upload_logs step was successful, proceeding to upload the artifact."
+    - name: Download build logs
+      id: download_logs
+      if: steps.upload_logs.outcome == 'success'
+      uses: actions/download-artifact@v4
+      with:
+        name: 'build_logs'
+        path: ${{ github.workspace }}/build_logs
 
+    - name: 'Release-Artifact'
+      if: steps.download_logs.outcome == 'success'
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ${{ github.workspace }}/build_logs/build.logs
+        asset_name: build.logs
+        asset_content_type: text/plain
