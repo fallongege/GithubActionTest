@@ -99,8 +99,7 @@ jobs:
       if: ${{ always() }}
       run: |
         echo "tag=$(echo $GITHUB_SHA | cut -c1-3)" >> $GITHUB_ENV
-        echo "tag=$(echo $GITHUB_SHA | cut -c1-3)" >> $GITHUB_OUTPUTS
-        echo "The tag is: ${{ env.tag }}"
+      
 
     - name: 'Release-Artifact'
       if: ${{ always() }}
