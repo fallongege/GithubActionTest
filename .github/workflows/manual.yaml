@@ -65,10 +65,10 @@ jobs:
       run: |
           mkdir ${{ github.workspace }}/build_logs
           echo "Logs from building" > ${{ github.workspace }}/build_logs/build.logs
-          exit 1
+  
     - name: Upload logs on fail
       id: upload_logs
-      if: ${{ failure() }}
+      #if: ${{ failure() }}
       uses: actions/upload-artifact@v4
       with:
         name: build_logs
