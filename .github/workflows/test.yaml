@@ -17,3 +17,5 @@ jobs:
      - name: Check_context
        run: |
         echo "$GITHHUB_CONTEXT"
+       env:
+         GITHUB_CONTEXT: ${{ toJson(github) }}
