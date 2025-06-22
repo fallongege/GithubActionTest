@@ -102,6 +102,8 @@ jobs:
       
 
     - name: 'Release-Artifact'
+      env:
+        tag: 12341
       if: ${{ always() }}
       uses: softprops/action-gh-release@v2
       with:
