@@ -16,7 +16,20 @@ jobs:
     steps:
      - name: Check_context
        run: |
-        echo "$GITHHUB_CONTEXT"
+        echo "$GITHHUB_CONTEXT" > context.json
        env:
          GITHUB_CONTEXT: ${{ toJson(github) }}
-         
+     - name: Check_Deafault_env
+       run: |
+        file=$(eval env)
+        echo "$file" >> context.json
+
+     - name: Upload context
+       uses: actions/upload-artifact@v4
+       with:
+         name: context
+         path: ${{ github.workspace }}
+     - name: Download context
+       uses: actions/download-artifact@v4
+       with:
+         name: context
