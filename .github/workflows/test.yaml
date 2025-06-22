@@ -19,3 +19,4 @@ jobs:
         echo "$GITHHUB_CONTEXT"
        env:
          GITHUB_CONTEXT: ${{ toJson(github) }}
+         
