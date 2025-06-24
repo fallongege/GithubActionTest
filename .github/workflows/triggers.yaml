@@ -75,7 +75,7 @@ jobs:
     - name: 'Checkout code'
       uses: actions/checkout@v4
       with:
-        ref: 'main' #${{ github.ref_name }} : not naming the ref will fetch the default branch
+        ref: 'master' #${{ github.ref_name }} : not naming the ref will fetch the default branch
         fetch-depth: 1 #1 is default and 0 fetches the full depth of the repo
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@v0.9.7
