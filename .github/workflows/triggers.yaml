@@ -71,7 +71,7 @@ jobs:
                 node-version: [18, 20]
         runs-on: ${{ matrix.os }}
         environment:
-            name: 'staging'
+            name: 'staging' #Note that when you define an environment that does not yet exist, it will be automatically created. You can choose to create them up front, but this is not required
             
         steps:
             - name: 'set up node'
