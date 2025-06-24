@@ -1,4 +1,10 @@
 name: triggers
+permissions:
+  actions: write
+  packages: write
+  contents: write
+  issues: write
+  pull-requests: write
 
 on:
     workflow_dispatch:
@@ -64,6 +70,9 @@ jobs:
                 os: [ubuntu-latest, windows-latest]
                 node-version: [18, 20]
         runs-on: ${{ matrix.os }}
+        environment:
+            name: 'staging'
+            
         steps:
             - name: 'set up node'
               uses: actions/setup-node@v4
