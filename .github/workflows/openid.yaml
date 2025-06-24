@@ -34,5 +34,5 @@ jobs:
         - name: 'S3 COPY'
           run: |
             echo "Copying file to S3 bucket"
-            aws s3 cp ./copy/* s3://fallongege-cp-pmc-bucket/copy/ --recursive
+            aws s3 cp ./copy/* s3://fallongege-cp-pmc-bucket
             
