@@ -1,11 +1,8 @@
 name: 'Test OpenID Connect'
 
 permissions:
-  contents: read
-  issues: write
-  pull-requests: write
-  actions: write
-  packages: write
+  id-token: write
+  contents:  write
 
 on:
     push:
