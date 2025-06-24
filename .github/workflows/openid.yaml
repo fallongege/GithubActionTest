@@ -31,3 +31,8 @@ jobs:
             echo "Running OpenID Connect tests"
             aws sts get-caller-identity
             aws s3 ls
+        - name: 'S3 COPY'
+          run: |
+            echo "Copying file to S3 bucket"
+            aws s3 cp ./copy/* s3://fallongege-cp-pmc-bucket/copy/ --recursive
+            
