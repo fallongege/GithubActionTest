@@ -1,0 +1,36 @@
+name: 'Test OpenID Connect'
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+  actions: write
+  packages: write
+
+on:
+    push:
+        branches:
+        - main
+    pull_request:
+        branches:
+        - main
+    workflow_dispatch:
+
+jobs:
+    test_openid_connect:
+        runs-on: ubuntu-latest
+        steps:
+        - name: 'Checkout repository'
+          uses: actions/checkout@v4
+    
+        - name: 'Configure AWS credentials'
+          uses: aws-actions/configure-aws-credentials@v4
+          with:
+            role-to-assume: arn:aws:iam::538672900635:role/GIHUB_IDENTITY_ROLE
+            aws-region: us-east-1
+    
+        - name: 'Test connectivity'
+          run: |
+            echo "Running OpenID Connect tests"
+            aws sts get-caller-identity
+            aws s3 ls
