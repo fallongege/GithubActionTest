@@ -27,7 +27,23 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Hello wrom branch workflow"
+      - name: 'Force Master Branch using bash'
+        run: |
+            if [[ "${{ github.ref }}" != 'refs/heads/master' ]]; then
+                echo "This workflow can only be run on the master branch."
+                exit 1
+            fi
+      - name: 'Use if'
+        if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'push' || github.event_name == 'pull_request' }}
+        # if: github.ref != 'refs/heads/master'
+        # if: ${{ github.ref != 'refs/heads/master' }}
+        run: |
+            echo "This workflow was triggered by a workflow_dispatch, push, or pull_request event."
+    # Linting workflow
+      - name: 'Linting'
+        id: action-lint
+        uses: devops-actions/actionlint@v0.1.9  #e7ee33fbf5aa8c9f9ee1145137f3e52e25d6a35b
+        continue-on-error: false
       - run: |
             echo "Homedrive: ${{ inputs.homedrive }}"
             echo "Log level: ${{ inputs.logLevel }}"
@@ -44,11 +60,34 @@ jobs:
             fail-fast: false
             max-parallel: 3
             matrix:
-                os: [ubuntu-latest, windows-latest, macos-latest]
-                node-version: [16, 18, 20]
+                os: [ubuntu-latest, windows-latest]
+                node-version: [18, 20]
         runs-on: ${{ matrix.os }}
         steps:
             - name: 'set up node'
               uses: actions/setup-node@v4
               with:
                 node-version: ${{ matrix.node-version }}
+  # Set up Semantic Versioning'
+  semantic-versioning:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 'Checkout code'
+      uses: actions/checkout@v4
+      with:
+        ref: 'main' #${{ github.ref_name }} : not naming the ref will fetch the default branch
+        fetch-depth: 1 #1 is default and 0 fetches the full depth of the repo
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.7
+      with:
+        versionSpec: '5.x'
+    - name: Determine Version
+      id: gitversion
+      uses: gittools/actions/gitversion/execute@v0.9.7
+
+    - name: Display GitVersion outputs
+      run: |
+        echo "Major Version: ${{ steps.gitversion.outputs.major }}"
+        echo "Minor Version: ${{ steps.gitversion.outputs.minor }}"
+        echo "Patch Version: ${{ steps.gitversion.outputs.patch }}"
+            
